@@ -10,7 +10,7 @@ interface LoadingDataContext {
   Query: Query;
 }
 
-const resolvers: Resolvers = {
+const resolvers: Resolvers<LoadingDataContext> = {
   Query: {
     hello: async (parent, args, context, info) => {
       return context.Query.hello;
@@ -30,7 +30,9 @@ const server = new ApolloServer({
   resolvers,
   context: async ({ req }: any) => {
     try {
-      const queryData = await readJsonFile("/../data/Query.json");
+      const queryData: LoadingDataContext = await readJsonFile(
+        "/../data/Query.json"
+      );
       return { Query: queryData };
     } catch (err) {
       console.log("***ERROR OCURRED***");
