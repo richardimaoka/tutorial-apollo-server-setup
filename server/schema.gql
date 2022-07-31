@@ -1,6 +1,6 @@
 type Query {
   hello: String
-  search: (department: String): [Employee]
+  search(department: String): [Employee]
 }
 
 type Employee {

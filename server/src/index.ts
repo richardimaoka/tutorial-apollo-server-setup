@@ -15,6 +15,20 @@ const resolvers: Resolvers<LoadingDataContext> = {
     hello: async (parent, args, context, info) => {
       return context.Query.hello;
     },
+    search: async (parent, args, context, info) => {
+      return context.Query.search;
+    },
+  },
+  Employee: {
+    name: async (parent, args, content, info) => {
+      return parent.name;
+    },
+    jobTitle: async (parent, args, content, info) => {
+      return parent.jobTitle;
+    },
+    department: async (parent, args, content, info) => {
+      return parent.department;
+    },
   },
 };
 

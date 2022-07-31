@@ -19,9 +19,21 @@ export type Scalars = {
   Float: number;
 };
 
+export type Employee = {
+  __typename?: "Employee";
+  department: Maybe<Scalars["String"]>;
+  jobTitle: Maybe<Scalars["String"]>;
+  name: Maybe<Scalars["String"]>;
+};
+
 export type Query = {
   __typename?: "Query";
   hello: Maybe<Scalars["String"]>;
+  search: Maybe<Array<Maybe<Employee>>>;
+};
+
+export type QuerySearchArgs = {
+  department: InputMaybe<Scalars["String"]>;
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -132,6 +144,7 @@ export type DirectiveResolverFn<
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
+  Employee: ResolverTypeWrapper<Employee>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars["String"]>;
 };
@@ -139,8 +152,23 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars["Boolean"];
+  Employee: Employee;
   Query: {};
   String: Scalars["String"];
+};
+
+export type EmployeeResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Employee"] = ResolversParentTypes["Employee"]
+> = {
+  department: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  jobTitle: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  name: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<
@@ -148,8 +176,15 @@ export type QueryResolvers<
   ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
 > = {
   hello: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  search: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["Employee"]>>>,
+    ParentType,
+    ContextType,
+    Partial<QuerySearchArgs>
+  >;
 };
 
 export type Resolvers<ContextType = any> = {
+  Employee: EmployeeResolvers<ContextType>;
   Query: QueryResolvers<ContextType>;
 };
