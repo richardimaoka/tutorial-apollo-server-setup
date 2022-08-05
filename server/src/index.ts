@@ -12,21 +12,21 @@ interface LoadingDataContext {
 
 const resolvers: Resolvers<LoadingDataContext> = {
   Query: {
-    hello: async (parent, args, context, info) => {
+    hello: async (_parent, _args, context, _info) => {
       return context.Query.hello;
     },
-    search: async (parent, args, context, info) => {
+    search: async (_parent, _args, context, _info) => {
       return context.Query.search;
     },
   },
   Employee: {
-    name: async (parent, args, content, info) => {
+    name: async (parent, _args, _content, _info) => {
       return parent.name;
     },
-    jobTitle: async (parent, args, content, info) => {
+    jobTitle: async (parent, _args, _content, _info) => {
       return parent.jobTitle;
     },
-    department: async (parent, args, content, info) => {
+    department: async (parent, _args, _content, _info) => {
       return parent.department;
     },
   },
